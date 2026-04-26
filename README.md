@@ -1,3 +1,6 @@
+<p align="center">
+  <img src="public/logo.png" alt="OmniPulse Logo" width="480"/>
+</p>
 # ⚡ O M N I • P U L S E
 
 > The real-time probability layer on Solana  
