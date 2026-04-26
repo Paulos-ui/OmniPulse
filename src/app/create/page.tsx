@@ -47,7 +47,7 @@ export default function CreatePage() {
   return (
     <div style={{maxWidth:'1280px',margin:'0 auto',padding:'48px 24px'}}>
       <p style={{fontFamily:'IBM Plex Mono,monospace',fontSize:'10px',letterSpacing:'0.14em',color:'#FF6600',textTransform:'uppercase',marginBottom:'8px',display:'flex',alignItems:'center',gap:'6px'}}>
-        <span>// NEW MARKET</span>
+        <span>{'// NEW MARKET'}</span>
       </p>
       <h1 style={{fontFamily:'Barlow,sans-serif',fontWeight:800,fontSize:'clamp(26px,4vw,42px)',color:'#F0F2F5',letterSpacing:'-0.01em',textTransform:'uppercase',marginBottom:'32px'}}>
         Create a Market
@@ -136,7 +136,7 @@ export default function CreatePage() {
         {/* Live preview */}
         <div style={{gridColumn:'1/-1'}} className="lg:col-span-1">
           <div style={{position:'sticky',top:'72px'}}>
-            <p style={{fontFamily:'IBM Plex Mono,monospace',fontSize:'9px',letterSpacing:'0.12em',color:'#3A4255',textTransform:'uppercase',marginBottom:'10px'}}>// LIVE PREVIEW</p>
+            <p style={{fontFamily:'IBM Plex Mono,monospace',fontSize:'9px',letterSpacing:'0.12em',color:'#3A4255',textTransform:'uppercase',marginBottom:'10px'}}>{'// LIVE PREVIEW'}</p>
             <div className="panel" style={{padding:'0'}}>
               <div style={{height:'3px',background:'linear-gradient(90deg,#FF6600,transparent)'}}/>
               <div style={{padding:'14px'}}>
