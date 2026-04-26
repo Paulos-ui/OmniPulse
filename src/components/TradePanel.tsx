@@ -1,121 +1,136 @@
 'use client';
 import { useState } from 'react';
 import { Market } from '@/types';
-import { TrendingUp, CheckCircle2, Wallet } from 'lucide-react';
+import { CheckCircle2 } from 'lucide-react';
 
 const QUICK = [10, 25, 50, 100];
 
-export default function TradePanel({ market, expired }: { market: Market; expired: boolean }) {
+export default function TradePanel({ market, expired }: { market:Market; expired:boolean }) {
   const [side,   setSide]   = useState<'YES'|'NO'>('YES');
   const [amount, setAmount] = useState('');
   const [busy,   setBusy]   = useState(false);
   const [done,   setDone]   = useState(false);
 
-  const price   = side === 'YES' ? market.yesPrice : market.noPrice;
-  const num     = parseFloat(amount) || 0;
-  const tokens  = num > 0 ? (num / price).toFixed(2) : '—';
-  const winAmt  = num > 0 ? (num / price).toFixed(2) : '—';
+  const price  = side==='YES' ? market.yesPrice : market.noPrice;
+  const num    = parseFloat(amount) || 0;
+  const tokens = num>0 ? (num/price).toFixed(4) : '—';
+  const winAmt = num>0 ? (num/price).toFixed(2)  : '—';
 
   async function trade() {
-    if (num <= 0) return;
+    if (num<=0) return;
     setBusy(true);
-    await new Promise(r => setTimeout(r, 1600));
+    await new Promise(r=>setTimeout(r,1600));
     setBusy(false); setDone(true); setAmount('');
-    setTimeout(() => setDone(false), 3000);
+    setTimeout(()=>setDone(false), 3500);
   }
 
   if (expired) return (
-    <div className="card p-6 space-y-4">
-      <h3 className="font-display font-bold text-white">Awaiting Resolution</h3>
-      <p className="text-sm text-[#6B7A94]">
-        Market has ended. The mock oracle is calculating the outcome…
-      </p>
-      <div className="h-1.5 rounded-full bg-[#111820] overflow-hidden">
-        <div className="h-full w-2/3 rounded-full bg-gradient-to-r from-yellow to-cyan animate-shimmer"
-          style={{ backgroundSize:'200% 100%' }}/>
+    <div className="panel" style={{padding:'20px'}}>
+      <div style={{borderBottom:'1px solid #1E2530',paddingBottom:'12px',marginBottom:'16px'}}>
+        <p style={{fontFamily:'IBM Plex Mono,monospace',fontSize:'10px',letterSpacing:'0.1em',color:'#FF6600',textTransform:'uppercase'}}>// MARKET STATUS</p>
       </div>
+      <p style={{fontFamily:'Barlow,sans-serif',fontWeight:700,fontSize:'16px',color:'#F0F2F5',marginBottom:'8px'}}>Awaiting Resolution</p>
+      <p style={{fontSize:'12px',color:'#6B7585',lineHeight:1.6,marginBottom:'16px'}}>
+        Market has expired. Mock oracle is computing outcome…
+      </p>
+      <div style={{height:'3px',background:'#1E2530',borderRadius:'2px',overflow:'hidden'}}>
+        <div style={{height:'100%',width:'66%',background:'linear-gradient(90deg,#FF6600,#0052FF)',animation:'shimmer 1.8s infinite',backgroundSize:'200% 100%'}}/>
+      </div>
+      <p style={{fontFamily:'IBM Plex Mono,monospace',fontSize:'10px',color:'#3A4255',marginTop:'10px',textAlign:'center',letterSpacing:'0.06em'}}>
+        PHASE 2: PYTH ORACLE RESOLUTION
+      </p>
     </div>
   );
 
   return (
-    <div className="sticky top-24 card p-6 space-y-5">
-      <h3 className="font-display font-bold text-lg text-white">Trade</h3>
-
-      {/* Side toggle */}
-      <div className="grid grid-cols-2 gap-2 p-1 rounded-xl bg-[#111820]">
-        {(['YES','NO'] as const).map(s => (
-          <button key={s} onClick={() => setSide(s)}
-            className={`py-2.5 rounded-lg text-sm font-display font-bold transition-all ${
-              side === s
-                ? s === 'YES'
-                  ? 'bg-green/20 text-green border border-green/30'
-                  : 'bg-red/20 text-red border border-red/30'
-                : 'text-[#4A5568] hover:text-[#AAB4C8]'
-            }`}>
-            {s} · {s === 'YES' ? Math.round(market.yesPrice*100) : Math.round(market.noPrice*100)}¢
-          </button>
-        ))}
+    <div className="panel" style={{padding:'0',position:'sticky',top:'72px'}}>
+      {/* Header */}
+      <div style={{padding:'14px 18px',borderBottom:'1px solid #1E2530',display:'flex',alignItems:'center',justifyContent:'space-between'}}>
+        <p style={{fontFamily:'IBM Plex Mono,monospace',fontSize:'10px',letterSpacing:'0.12em',color:'#FF6600',textTransform:'uppercase'}}>// TRADE</p>
+        <span style={{fontFamily:'IBM Plex Mono,monospace',fontSize:'9px',color:'#3A4255',letterSpacing:'0.06em'}}>MOCK MODE</span>
       </div>
 
-      {/* Amount */}
-      <div>
-        <label className="text-xs font-mono text-[#4A5568] block mb-2">Amount (USDC)</label>
-        <div className="relative">
-          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[#4A5568] font-mono text-sm">$</span>
-          <input className="inp pl-7" type="number" placeholder="0.00" min="0"
-            value={amount} onChange={e => setAmount(e.target.value)}/>
-        </div>
-        <div className="flex gap-2 mt-2">
-          {QUICK.map(q => (
-            <button key={q} onClick={() => setAmount(String(q))}
-              className="flex-1 py-1.5 text-xs font-mono rounded-lg border border-[#1A2535]
-                         text-[#4A5568] hover:text-cyan hover:border-cyan/30 transition-all">
-              ${q}
+      <div style={{padding:'18px'}}>
+        {/* Side selector */}
+        <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:'1px',background:'#1E2530',border:'1px solid #1E2530',borderRadius:'3px',overflow:'hidden',marginBottom:'18px'}}>
+          {(['YES','NO'] as const).map(s=>(
+            <button key={s} onClick={()=>setSide(s)} style={{
+              padding:'11px',textAlign:'center',cursor:'pointer',border:'none',
+              fontFamily:'IBM Plex Mono,monospace',fontSize:'11px',letterSpacing:'0.1em',
+              fontWeight:600, transition:'all 0.15s',
+              background: side===s ? (s==='YES'?'rgba(0,200,83,0.13)':'rgba(255,23,68,0.13)') : '#0D0F14',
+              color: side===s ? (s==='YES'?'#00C853':'#FF1744') : '#3A4255',
+              borderBottom: side===s ? `2px solid ${s==='YES'?'#00C853':'#FF1744'}` : '2px solid transparent',
+            }}>
+              {s} · {s==='YES' ? Math.round(market.yesPrice*100) : Math.round(market.noPrice*100)}¢
             </button>
           ))}
         </div>
+
+        {/* Amount */}
+        <div style={{marginBottom:'16px'}}>
+          <p style={{fontFamily:'IBM Plex Mono,monospace',fontSize:'9px',letterSpacing:'0.1em',color:'#3A4255',textTransform:'uppercase',marginBottom:'6px'}}>AMOUNT (USDC)</p>
+          <div style={{position:'relative'}}>
+            <span style={{position:'absolute',left:'12px',top:'50%',transform:'translateY(-50%)',fontFamily:'IBM Plex Mono,monospace',fontSize:'13px',color:'#3A4255'}}>$</span>
+            <input className="inp" type="number" placeholder="0.00" min="0" value={amount}
+              onChange={e=>setAmount(e.target.value)}
+              style={{paddingLeft:'28px',fontFamily:'IBM Plex Mono,monospace',fontWeight:600,fontSize:'15px'}}/>
+          </div>
+          <div style={{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:'4px',marginTop:'6px'}}>
+            {QUICK.map(q=>(
+              <button key={q} onClick={()=>setAmount(String(q))} style={{
+                padding:'5px',border:'1px solid #1E2530',background:'#0D0F14',
+                fontFamily:'IBM Plex Mono,monospace',fontSize:'10px',color:'#3A4255',
+                cursor:'pointer',borderRadius:'2px',transition:'all 0.15s',letterSpacing:'0.04em',
+              }}
+              onMouseEnter={e=>{ (e.currentTarget as HTMLElement).style.borderColor='#FF6600'; (e.currentTarget as HTMLElement).style.color='#FF6600'; }}
+              onMouseLeave={e=>{ (e.currentTarget as HTMLElement).style.borderColor='#1E2530'; (e.currentTarget as HTMLElement).style.color='#3A4255'; }}>
+                ${q}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Order summary */}
+        <div style={{border:'1px solid #1E2530',borderRadius:'3px',marginBottom:'16px',overflow:'hidden'}}>
+          <div style={{background:'#0D0F14',padding:'7px 12px',borderBottom:'1px solid #1E2530'}}>
+            <p style={{fontFamily:'IBM Plex Mono,monospace',fontSize:'9px',color:'#3A4255',letterSpacing:'0.1em',textTransform:'uppercase'}}>ORDER SUMMARY</p>
+          </div>
+          <div style={{padding:'10px 12px',display:'flex',flexDirection:'column',gap:'7px'}}>
+            {[
+              ['TOKENS OUT',   `${tokens} ${side}`,  side==='YES'?'#00C853':'#FF1744'],
+              ['AVG PRICE',    `${Math.round(price*100)}¢`, '#F0F2F5'],
+              ['POTENTIAL WIN',`$${winAmt}`,           '#00C853'],
+              ['PROTOCOL FEE', num>0?`$${(num*.005).toFixed(3)}`:'—', '#3A4255'],
+            ].map(([k,v,c])=>(
+              <div key={k} style={{display:'flex',justifyContent:'space-between'}}>
+                <span style={{fontFamily:'IBM Plex Mono,monospace',fontSize:'10px',color:'#3A4255',letterSpacing:'0.06em'}}>{k}</span>
+                <span style={{fontFamily:'IBM Plex Mono,monospace',fontSize:'10px',fontWeight:600,color:c as string}}>{v}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Submit */}
+        {done ? (
+          <div style={{display:'flex',alignItems:'center',justifyContent:'center',gap:'8px',padding:'12px',border:'1px solid rgba(0,200,83,0.3)',borderRadius:'3px',background:'rgba(0,200,83,0.08)'}}>
+            <CheckCircle2 size={15} color="#00C853"/>
+            <span style={{fontFamily:'IBM Plex Mono,monospace',fontSize:'11px',color:'#00C853',letterSpacing:'0.08em'}}>TX CONFIRMED</span>
+          </div>
+        ) : (
+          <button onClick={trade} disabled={busy||num<=0}
+            className={side==='YES'?'btn btn-yes':'btn btn-no'}
+            style={{width:'100%',justifyContent:'center',padding:'12px',fontSize:'11px',letterSpacing:'0.1em',opacity:busy||num<=0?0.4:1,cursor:busy||num<=0?'not-allowed':'pointer'}}>
+            {busy
+              ? <><span style={{width:'14px',height:'14px',borderRadius:'50%',border:'2px solid currentColor',borderTopColor:'transparent',animation:'spin 0.7s linear infinite'}}/>SUBMITTING TX…</>
+              : <>BUY {side}{num>0?` · $${num}`:''}</>}
+          </button>
+        )}
+
+        <p style={{fontFamily:'IBM Plex Mono,monospace',fontSize:'9px',color:'#3A4255',textAlign:'center',marginTop:'10px',letterSpacing:'0.06em'}}>
+          CONNECT WALLET FOR ON-CHAIN EXECUTION
+        </p>
       </div>
-
-      {/* Summary */}
-      <div className="rounded-xl bg-[#111820] border border-[#1A2535] p-4 space-y-2.5 text-xs font-mono">
-        <div className="flex justify-between">
-          <span className="text-[#4A5568]">Tokens out</span>
-          <span className={`font-bold ${side==='YES'?'text-green':'text-red'}`}>{tokens} {side}</span>
-        </div>
-        <div className="flex justify-between">
-          <span className="text-[#4A5568]">Avg price</span>
-          <span className="text-white">{Math.round(price*100)}¢</span>
-        </div>
-        <div className="flex justify-between">
-          <span className="text-[#4A5568]">If correct you win</span>
-          <span className="text-green">${winAmt}</span>
-        </div>
-        <div className="border-t border-[#1A2535] pt-2 flex justify-between">
-          <span className="text-[#4A5568]">Fee (0.5%)</span>
-          <span className="text-[#4A5568]">{num>0 ? `$${(num*.005).toFixed(2)}` : '—'}</span>
-        </div>
-      </div>
-
-      {/* CTA */}
-      {done ? (
-        <div className="flex items-center justify-center gap-2 py-3.5 rounded-lg
-                        bg-green/10 border border-green/30 text-green">
-          <CheckCircle2 size={16}/>
-          <span className="font-display font-bold text-sm">Trade Confirmed!</span>
-        </div>
-      ) : (
-        <button onClick={trade} disabled={busy || num <= 0}
-          className={`btn w-full justify-center py-3.5 text-sm disabled:opacity-40 disabled:cursor-not-allowed
-            ${side==='YES' ? 'btn-yes' : 'btn-no'}`}>
-          {busy
-            ? <><span className="w-4 h-4 rounded-full border-2 border-current/30 border-t-current animate-spin"/>Submitting…</>
-            : <><TrendingUp size={15}/>Buy {side}{num>0 ? ` · $${num}` : ''}</>}
-        </button>
-      )}
-
-      <button className="w-full text-center text-xs font-mono text-[#4A5568] hover:text-cyan transition-colors flex items-center justify-center gap-1.5">
-        <Wallet size={12}/>Connect Wallet to Trade on-chain
-      </button>
     </div>
   );
 }

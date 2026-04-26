@@ -1,36 +1,35 @@
 'use client';
 import Countdown from './Countdown';
 
-const EXAMPLES = [
-  { q:'Will SOL go up in the next 30 minutes?',     yes:67, dur:'30 MIN', endTime:Date.now()+18*60_000,     vol:'$42.8K', hot:true  },
-  { q:'Will BTC hit $70k today?',                    yes:41, dur:'8 HR',  endTime:Date.now()+8*3600_000,    vol:'$187K',  hot:true  },
-  { q:'Will the next Fed announcement be hawkish?',  yes:15, dur:'24 HR', endTime:Date.now()+20*3600_000,   vol:'$95K',   hot:false },
-  { q:'ETH gas below 10 gwei in 1 hour?',            yes:29, dur:'1 HR',  endTime:Date.now()+40*60_000,     vol:'$28K',   hot:false },
-  { q:'New AI model drops before Friday?',           yes:78, dur:'24 HR', endTime:Date.now()+21*3600_000,   vol:'$58K',   hot:true  },
-  { q:'Solana daily transactions hit new ATH?',      yes:55, dur:'4 HR',  endTime:Date.now()+4*3600_000,    vol:'$21K',   hot:false },
+const ITEMS = [
+  { q:'Will SOL exceed $200 in the next 30 minutes?',    yes:67, dur:'30M', endTime:Date.now()+18*60_000,   vol:'$42.8K', hot:true  },
+  { q:'Will BTC hit $70,000 before midnight UTC?',       yes:41, dur:'8H',  endTime:Date.now()+8*3600_000,  vol:'$187K',  hot:true  },
+  { q:'Next Fed announcement hawkish?',                   yes:15, dur:'24H', endTime:Date.now()+20*3600_000, vol:'$95K',   hot:false },
+  { q:'ETH gas below 10 gwei in 1 hour?',                yes:29, dur:'1H',  endTime:Date.now()+40*60_000,   vol:'$28K',   hot:false },
+  { q:'New major AI model announced today?',             yes:78, dur:'24H', endTime:Date.now()+21*3600_000, vol:'$58K',   hot:true  },
+  { q:'Solana daily TXs hit new all-time-high?',         yes:55, dur:'4H',  endTime:Date.now()+4*3600_000,  vol:'$21K',   hot:false },
 ];
 
 export default function ShowcaseSection() {
   return (
-    <section className="py-20 bg-[#0D1117] border-y border-[#1A2535]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 bg-yellow/10 border border-yellow/20
-                          rounded-full px-4 py-1.5 mb-4">
-            <span className="text-xs font-mono text-yellow tracking-widest uppercase">🔥 Trending</span>
+    <section style={{background:'#0D0F14',borderTop:'1px solid #1E2530',borderBottom:'1px solid #1E2530',padding:'64px 0'}}>
+      <div style={{maxWidth:'1280px',margin:'0 auto',padding:'0 24px'}}>
+
+        <div style={{display:'flex',alignItems:'flex-end',justifyContent:'space-between',marginBottom:'40px',flexWrap:'wrap',gap:'12px'}}>
+          <div>
+            <p className="section-label" style={{marginBottom:'8px'}}>TRENDING MARKETS</p>
+            <h2 style={{fontFamily:'Barlow,sans-serif',fontWeight:800,fontSize:'clamp(24px,4vw,36px)',color:'#F0F2F5',letterSpacing:'-0.01em',lineHeight:1.1}}>
+              Micro-Markets for Every Moment
+            </h2>
           </div>
-          <h2 className="font-display font-extrabold text-3xl sm:text-4xl text-white mb-3">
-            Micro-Markets for Every Moment
-          </h2>
-          <p className="text-[#6B7A94] text-base max-w-xl mx-auto">
-            From 5-minute crypto moves to 24-hour macro events.
-            If it's uncertain, it can be a market.
-          </p>
+          <span style={{fontFamily:'IBM Plex Mono,monospace',fontSize:'10px',color:'#3A4255',letterSpacing:'0.1em'}}>
+            RESOLUTION: 5 MIN → 24 HR
+          </span>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {EXAMPLES.map((e, i) => (
-            <ShowCard key={i} {...e} delay={i*70}/>
+        <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(280px,1fr))',gap:'1px',background:'#1E2530',border:'1px solid #1E2530',borderRadius:'4px',overflow:'hidden'}}>
+          {ITEMS.map((item,i) => (
+            <ShowRow key={i} {...item} delay={i*60}/>
           ))}
         </div>
       </div>
@@ -38,34 +37,39 @@ export default function ShowcaseSection() {
   );
 }
 
-function ShowCard({ q, yes, dur, endTime, vol, hot, delay }:
-  { q:string; yes:number; dur:string; endTime:number; vol:string; hot:boolean; delay:number }) {
-  const no = 100 - yes;
+function ShowRow({ q,yes,dur,endTime,vol,hot,delay }: any) {
+  const no = 100-yes;
   return (
-    <div className="card p-5 opacity-0" style={{animation:`fadeUp .5s ease-out ${delay}ms forwards`}}>
-      <div className="flex items-center justify-between mb-3">
-        <span className="tag text-[#4A5568] border-[#1A2535]">⚡ {dur}</span>
-        {hot && <span className="tag text-red border-red/25 bg-red/8">🔥 HOT</span>}
-      </div>
-      <p className="font-display font-semibold text-sm text-white leading-snug mb-4 min-h-[2.5rem]">{q}</p>
-      <div className="flex items-end gap-3 mb-3">
-        <div>
-          <p className={`font-display font-extrabold text-3xl ${yes>=65?'text-green':yes<=35?'text-red':'text-white'}`}>
-            {yes}%
-          </p>
-          <p className="text-xs font-mono text-[#4A5568]">YES probability</p>
+    <div className="fade-up" style={{background:'#111318',padding:'18px',animationDelay:`${delay}ms`,position:'relative'}}>
+      {hot && (
+        <div style={{position:'absolute',top:'12px',right:'12px',fontFamily:'IBM Plex Mono,monospace',fontSize:'9px',color:'#FF6600',letterSpacing:'0.1em',border:'1px solid rgba(255,102,0,0.3)',padding:'1px 5px',borderRadius:'2px'}}>
+          HOT
         </div>
-        <div className="flex-1 pb-2">
-          <div className="pbar" style={{height:'7px'}}>
-            <div className="pbar-fill" style={{width:`${yes}%`,height:'7px'}}/>
-          </div>
-        </div>
-      </div>
-      <div className="flex items-center justify-between border-t border-[#1A2535] pt-3">
+      )}
+      <div style={{display:'flex',alignItems:'center',gap:'8px',marginBottom:'10px'}}>
+        <span style={{fontFamily:'IBM Plex Mono,monospace',fontSize:'9px',letterSpacing:'0.1em',color:'#3A4255',border:'1px solid #1E2530',padding:'1px 5px',borderRadius:'2px'}}>
+          ⚡ {dur}
+        </span>
         <Countdown endTime={endTime} compact/>
-        <span className="text-xs font-mono text-[#4A5568]">{vol} vol</span>
-        <button className="text-xs font-display font-bold text-cyan hover:text-white transition-colors">
-          Trade →
+      </div>
+      <p style={{fontFamily:'Barlow,sans-serif',fontWeight:600,fontSize:'13px',color:'#B8C0CC',lineHeight:1.4,marginBottom:'14px',minHeight:'36px'}}>
+        {q}
+      </p>
+      <div style={{display:'flex',alignItems:'flex-end',gap:'12px',marginBottom:'10px'}}>
+        <div>
+          <span style={{fontFamily:'IBM Plex Mono,monospace',fontWeight:600,fontSize:'26px',color: yes>=65?'#00C853':yes<=35?'#FF1744':'#F0F2F5'}}>
+            {yes}%
+          </span>
+          <span style={{fontFamily:'IBM Plex Mono,monospace',fontSize:'10px',color:'#3A4255',marginLeft:'4px'}}>YES</span>
+        </div>
+        <div style={{flex:1,paddingBottom:'6px'}}>
+          <div className="pbar" style={{height:'4px'}}><div className="pbar-fill" style={{width:`${yes}%`,height:'4px'}}/></div>
+        </div>
+      </div>
+      <div style={{display:'flex',justifyContent:'space-between',paddingTop:'10px',borderTop:'1px solid #1E2530'}}>
+        <span style={{fontFamily:'IBM Plex Mono,monospace',fontSize:'10px',color:'#3A4255'}}>{vol}</span>
+        <button style={{fontFamily:'IBM Plex Mono,monospace',fontSize:'10px',color:'#FF6600',background:'none',border:'none',cursor:'pointer',letterSpacing:'0.06em'}}>
+          TRADE →
         </button>
       </div>
     </div>
