@@ -181,7 +181,7 @@ export default function HomePage() {
                        marginBottom:'6px',display:'flex',alignItems:'center',gap:'7px'}}>
               <span style={{width:'6px',height:'6px',borderRadius:'50%',
                             background:'#00C853',boxShadow:'0 0 8px #00C853'}}/>
-              // LIVE MARKETS
+              {'// LIVE MARKETS'}
             </p>
             <h2 style={{fontFamily:'Barlow,sans-serif',fontWeight:800,
                         fontSize:'clamp(22px,3.5vw,34px)',color:'#F0F2F5',
@@ -219,7 +219,7 @@ export default function HomePage() {
         <div style={{textAlign:'center',marginBottom:'52px'}}>
           <p style={{fontFamily:'IBM Plex Mono,monospace',fontSize:'10px',letterSpacing:'0.16em',
                      color:'#FF6600',textTransform:'uppercase',marginBottom:'10px'}}>
-            // THE PROTOCOL
+            {'// THE PROTOCOL'}
           </p>
           <h2 style={{fontFamily:'Barlow,sans-serif',fontWeight:800,
                       fontSize:'clamp(24px,4vw,40px)',color:'#F0F2F5',
@@ -293,7 +293,7 @@ export default function HomePage() {
         <div style={{maxWidth:'1280px',margin:'0 auto',padding:'0 24px'}}>
           <p style={{fontFamily:'IBM Plex Mono,monospace',fontSize:'10px',letterSpacing:'0.16em',
                      color:'#3A4255',textTransform:'uppercase',marginBottom:'24px'}}>
-            // DEPLOYMENT ROADMAP
+            {'// DEPLOYMENT ROADMAP'}
           </p>
           <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(220px,1fr))',
                        gap:'1px',background:'#1E2530',border:'1px solid #1E2530',

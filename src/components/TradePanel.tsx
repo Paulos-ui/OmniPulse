@@ -27,7 +27,7 @@ export default function TradePanel({ market, expired }: { market:Market; expired
   if (expired) return (
     <div className="panel" style={{padding:'20px'}}>
       <div style={{borderBottom:'1px solid #1E2530',paddingBottom:'12px',marginBottom:'16px'}}>
-        <p style={{fontFamily:'IBM Plex Mono,monospace',fontSize:'10px',letterSpacing:'0.1em',color:'#FF6600',textTransform:'uppercase'}}>// MARKET STATUS</p>
+        <p style={{fontFamily:'IBM Plex Mono,monospace',fontSize:'10px',letterSpacing:'0.1em',color:'#FF6600',textTransform:'uppercase'}}>{'// MARKET STATUS'}</p>
       </div>
       <p style={{fontFamily:'Barlow,sans-serif',fontWeight:700,fontSize:'16px',color:'#F0F2F5',marginBottom:'8px'}}>Awaiting Resolution</p>
       <p style={{fontSize:'12px',color:'#6B7585',lineHeight:1.6,marginBottom:'16px'}}>
@@ -46,7 +46,7 @@ export default function TradePanel({ market, expired }: { market:Market; expired
     <div className="panel" style={{padding:'0',position:'sticky',top:'72px'}}>
       {/* Header */}
       <div style={{padding:'14px 18px',borderBottom:'1px solid #1E2530',display:'flex',alignItems:'center',justifyContent:'space-between'}}>
-        <p style={{fontFamily:'IBM Plex Mono,monospace',fontSize:'10px',letterSpacing:'0.12em',color:'#FF6600',textTransform:'uppercase'}}>// TRADE</p>
+        <p style={{fontFamily:'IBM Plex Mono,monospace',fontSize:'10px',letterSpacing:'0.12em',color:'#FF6600',textTransform:'uppercase'}}>{'// TRADE'}</p>
         <span style={{fontFamily:'IBM Plex Mono,monospace',fontSize:'9px',color:'#3A4255',letterSpacing:'0.06em'}}>MOCK MODE</span>
       </div>
 

@@ -127,7 +127,7 @@ export default function MarketPage() {
           {/* Market info */}
           <div className="panel" style={{padding:'0'}}>
             <div style={{padding:'10px 16px',borderBottom:'1px solid #1E2530'}}>
-              <p style={{fontFamily:'IBM Plex Mono,monospace',fontSize:'9px',letterSpacing:'0.12em',color:'#FF6600',textTransform:'uppercase'}}>// MARKET INFO</p>
+              <p style={{fontFamily:'IBM Plex Mono,monospace',fontSize:'9px',letterSpacing:'0.12em',color:'#FF6600',textTransform:'uppercase'}}>{'// MARKET INFO'}</p>
             </div>
             <div style={{padding:'14px 16px'}}>
               {[

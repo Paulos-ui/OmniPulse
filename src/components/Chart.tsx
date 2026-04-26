@@ -21,7 +21,7 @@ export default function Chart({ id, yesInit }: { id:string; yesInit:number }) {
   return (
     <div className="panel" style={{padding:'0'}}>
       <div style={{padding:'12px 16px',borderBottom:'1px solid #1E2530',display:'flex',alignItems:'center',justifyContent:'space-between'}}>
-        <p style={{fontFamily:'IBM Plex Mono,monospace',fontSize:'10px',letterSpacing:'0.1em',color:'#FF6600',textTransform:'uppercase'}}>// PROBABILITY CHART</p>
+        <p style={{fontFamily:'IBM Plex Mono,monospace',fontSize:'10px',letterSpacing:'0.1em',color:'#FF6600',textTransform:'uppercase'}}>{'// PROBABILITY CHART'}</p>
         <div style={{display:'flex',alignItems:'center',gap:'6px'}}>
           <span style={{width:'5px',height:'5px',borderRadius:'50%',background:'#FF6600',boxShadow:'0 0 6px #FF6600'}}/>
           <span style={{fontFamily:'IBM Plex Mono,monospace',fontSize:'11px',fontWeight:600,color:'#FF6600'}}>{Math.round(cur)}% YES</span>
