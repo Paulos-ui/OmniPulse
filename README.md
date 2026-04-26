@@ -1,11 +1,15 @@
 <p align="center">
   <img src="public/logo.png" alt="OmniPulse Logo" width="480"/>
 </p>
-# ⚡ O M N I • P U L S E
 
-> The real-time probability layer on Solana  
-> Micro prediction markets powered by liquidity  
-> **Built for the Omnipair ecosystem**
+<h1 align="center">⚡ O M N I • P U L S E</h1>
+
+
+<p align="center">
+  The real-time probability layer on Solana  
+  <br/>
+  Micro prediction markets powered by liquidity
+</p>
 
 ---
 
